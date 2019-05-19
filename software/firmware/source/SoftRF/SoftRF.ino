@@ -87,13 +87,14 @@
 
 ufo_t ThisAircraft;
 hardware_info_t hw_info = {
+  //.model    = SOFTRF_MODEL_PRIME_MK2,
   .model    = SOFTRF_MODEL_STANDALONE,
-  .revision = 0,
-  .soc      = SOC_NONE,
-  .rf       = RF_IC_NONE,
-  .gnss     = GNSS_MODULE_NONE,
+  .revision = 1,
+  .soc      = SOC_ESP32,
+  .rf       = RF_IC_SX1276,
+  .gnss     = GNSS_MODULE_U8,
   .baro     = BARO_MODULE_NONE,
-  .display  = DISPLAY_NONE
+  .display  = DISPLAY_OLED_HELTEC
 };
 
 unsigned long LEDTimeMarker = 0;

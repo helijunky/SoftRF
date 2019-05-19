@@ -71,13 +71,16 @@ extern Adafruit_NeoPixel strip;
 #define LEDC_RESOLUTION_BUZZER  8
 
 /* Peripherals */
-#define SOC_GPIO_PIN_GNSS_RX  23
-#define SOC_GPIO_PIN_GNSS_TX  12
-#define SOC_GPIO_PIN_LED      25
+//#define SOC_GPIO_PIN_GNSS_RX  23
+#define SOC_GPIO_PIN_GNSS_RX  35  // stimmt
+#define SOC_GPIO_PIN_GNSS_TX  12  // stimmt
+//#define SOC_GPIO_PIN_LED      25 // HELTEC LED
+#define SOC_GPIO_PIN_LED      2 // TTGO LED
 #define SOC_GPIO_PIN_BUZZER   13
 #define SOC_GPIO_PIN_BATTERY  36
 
-#define SOC_GPIO_PIN_GNSS_PPS SOC_UNUSED_PIN
+//#define SOC_GPIO_PIN_GNSS_PPS SOC_UNUSED_PIN
+#define SOC_GPIO_PIN_GNSS_PPS 34
 #define SOC_GPIO_PIN_MODE_PULLDOWN INPUT_PULLDOWN
 
 #define SOC_GPIO_PIN_STATUS   (hw_info.model != SOFTRF_MODEL_PRIME_MK2 ?\
@@ -87,10 +90,10 @@ extern Adafruit_NeoPixel strip;
                                   SOC_GPIO_PIN_TBEAM_LED_V05))
 
 /* SPI (does match Heltec & TTGO LoRa32 pins mapping) */
-#define SOC_GPIO_PIN_MOSI     27
-#define SOC_GPIO_PIN_MISO     19
-#define SOC_GPIO_PIN_SCK      5
-#define SOC_GPIO_PIN_SS       18
+#define SOC_GPIO_PIN_MOSI     27 // LoRa_MOSI
+#define SOC_GPIO_PIN_MISO     19 // LoRa_MISO
+#define SOC_GPIO_PIN_SCK      5  // LoRa_SCK
+#define SOC_GPIO_PIN_SS       18 // LoRa_CS
 
 /* NRF905 */
 #define SOC_GPIO_PIN_TXE      26
@@ -98,10 +101,12 @@ extern Adafruit_NeoPixel strip;
 #define SOC_GPIO_PIN_PWR      14
 
 /* SX1276 [RFM95W] (does match Heltec & TTGO LoRa32 pins mapping) */
-#define SOC_GPIO_PIN_RST      14
-#define SOC_GPIO_PIN_DIO0     26
-#define SOC_GPIO_PIN_SDA      14
-#define SOC_GPIO_PIN_SCL      2
+#define SOC_GPIO_PIN_RST      14 // LoRa_RST
+#define SOC_GPIO_PIN_DIO0     26 // LoRa_IRQ
+//#define SOC_GPIO_PIN_SDA      14 // warum 14 ?
+#define SOC_GPIO_PIN_SDA      4  // OLED_SDA
+//#define SOC_GPIO_PIN_SCL      2
+#define SOC_GPIO_PIN_SCL      15 // OLED_SCL
 
 /* TTGO T-BEAM section */
 // GPS module
@@ -126,9 +131,10 @@ extern Adafruit_NeoPixel strip;
 #define TTGO_V2_OLED_PIN_SDA  21
 #define TTGO_V2_OLED_PIN_SCL  22
 // Hardware pin definitions for Heltec and TTGO-V1 LoRa-32 Boards with OLED SSD1306 I2C Display
-#define HELTEC_OLED_PIN_RST   U8X8_PIN_NONE // 16
-#define HELTEC_OLED_PIN_SDA   4
-#define HELTEC_OLED_PIN_SCL   15
+//#define HELTEC_OLED_PIN_RST   U8X8_PIN_NONE // 16
+#define HELTEC_OLED_PIN_RST   16 // OLED_RST
+#define HELTEC_OLED_PIN_SDA   4 // OLED_SDA
+#define HELTEC_OLED_PIN_SCL   15 // OLED_SCL
 
 extern WebServer server;
 

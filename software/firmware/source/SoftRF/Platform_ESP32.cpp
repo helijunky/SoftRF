@@ -439,6 +439,17 @@ static byte ESP32_Display_setup()
 {
   byte rval = DISPLAY_NONE;
 
+  if (hw_info.display == DISPLAY_OLED_HELTEC) {
+     u8x8 = &u8x8_heltec;
+     esp32_board = ESP32_HELTEC_OLED;
+     rval = DISPLAY_OLED_HELTEC;
+  }
+  else if (hw_info.display == DISPLAY_OLED_TTGO) {
+      u8x8 = &u8x8_ttgo;
+      esp32_board = ESP32_TTGO_V2_OLED;
+      rval = DISPLAY_OLED_TTGO;
+  }
+  
   /* SSD1306 I2C OLED probing */
   if (GPIO_21_22_are_busy) {
     Wire1.begin(HELTEC_OLED_PIN_SDA , HELTEC_OLED_PIN_SCL);
@@ -552,9 +563,11 @@ static float ESP32_Battery_voltage()
 static void ESP32_Battery_setup()
 {
   calibrate_voltage(hw_info.model == SOFTRF_MODEL_PRIME_MK2 ?
+                    //ADC1_GPIO35_CHANNEL : ADC1_GPIO35_CHANNEL);
                     ADC1_GPIO35_CHANNEL : ADC1_GPIO36_CHANNEL);
+
 #if 0
-  if (hw_info.model == SOFTRF_MODEL_PRIME_MK2) {
+  //if (hw_info.model == SOFTRF_MODEL_PRIME_MK2) {
     float voltage = ESP32_Battery_voltage();
     // Serial.println(voltage);
     if (voltage < 2.0) {
@@ -564,7 +577,7 @@ static void ESP32_Battery_setup()
       Serial.println(F("WARNING: Low battery voltage is detected!"
                        " Brownout control is disabled."));
     }
-  }
+  //}
 #endif
 }
 
