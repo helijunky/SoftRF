@@ -115,8 +115,6 @@ std::string input_line;
 
 TCPServer Traffic_TCP_Server;
 
-#define isValidFix() (isValidGNSSFix() || isValidGPSDFix())
-
 static void RPi_setup()
 {
   eeprom_block.field.magic = SOFTRF_EEPROM_MAGIC;
@@ -166,7 +164,7 @@ static void RPi_WiFi_transmit_UDP(int port, byte *buf, size_t size)
 
 static void RPi_SPI_begin()
 {
-  /* TBD */
+  SPI.begin();
 }
 
 static void RPi_swSer_begin(unsigned long baud)
@@ -679,6 +677,7 @@ int main()
       exit(EXIT_FAILURE);
   }
 
+#if 0
   Serial.print("Intializing E-ink display module (may take up to 10 seconds)... ");
   Serial.flush();
   hw_info.display = SoC->Display_setup();
@@ -687,6 +686,7 @@ int main()
   } else {
     Serial.println(" failed!");
   }
+#endif
 
   ThisAircraft.addr = SoC->getChipId() & 0x00FFFFFF;
   ThisAircraft.aircraft_type = settings->aircraft_type;
