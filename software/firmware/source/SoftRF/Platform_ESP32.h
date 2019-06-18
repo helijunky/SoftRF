@@ -72,8 +72,8 @@ extern Adafruit_NeoPixel strip;
 
 /* Peripherals */
 //#define SOC_GPIO_PIN_GNSS_RX  23
-#define SOC_GPIO_PIN_GNSS_RX  35  // stimmt
-#define SOC_GPIO_PIN_GNSS_TX  12  // stimmt
+#define SOC_GPIO_PIN_GNSS_RX  35  // TTGO/HELTEC
+#define SOC_GPIO_PIN_GNSS_TX  12  // TTGO/HELTEC
 //#define SOC_GPIO_PIN_LED      25 // HELTEC LED
 #define SOC_GPIO_PIN_LED      2 // TTGO LED
 #define SOC_GPIO_PIN_BUZZER   13
