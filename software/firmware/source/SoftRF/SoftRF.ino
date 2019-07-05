@@ -85,16 +85,19 @@
 #define isTimeToDisplay() (millis() - LEDTimeMarker > 1000)
 #define isTimeToExport() (millis() - ExportTimeMarker > 1000)
 
+// Board: "ESP32 Dev Module"
+// Partition Scheme: "Minimal SPIFFS..."
+
 ufo_t ThisAircraft;
 hardware_info_t hw_info = {
-  .model    = SOFTRF_MODEL_PRIME_MK2, // TTGO T-BEAM
-  //.model    = SOFTRF_MODEL_STANDALONE,  // HELTEC/TTGO
+  //.model    = SOFTRF_MODEL_PRIME_MK2, // TTGO T-BEAM
+  .model    = SOFTRF_MODEL_STANDALONE,  // HELTEC/TTGO
   .revision = 1,
   .soc      = SOC_ESP32,
   .rf       = RF_IC_SX1276,
-  .gnss     = GNSS_MODULE_U6, // TTGO T-BEAM with NEO-6M
+  //.gnss     = GNSS_MODULE_U6, // TTGO T-BEAM with NEO-6M
   //.gnss     = GNSS_MODULE_U8, // TTGO T-BEAM with NEO-8M (wahrscheinlich)
-  //.gnss     = GNSS_MODULE_U8, // HELTEC/TTGO with VK2828U7G5LF
+  .gnss     = GNSS_MODULE_U8, // HELTEC/TTGO with VK2828U7G5LF
   .baro     = BARO_MODULE_NONE,
   .display  = DISPLAY_OLED_HELTEC // HELTEC/TTGO & TTGO T-BEAM
 };
