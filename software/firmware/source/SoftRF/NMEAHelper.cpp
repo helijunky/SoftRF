@@ -290,7 +290,6 @@ void NMEA_Export()
                     ltrim(str_climb_rate), Container[i].aircraft_type);
 
             NMEA_add_checksum(NMEABuffer, sizeof(NMEABuffer) - strlen(NMEABuffer));
-
             NMEA_Out((byte *) NMEABuffer, strlen(NMEABuffer), false);
 
             /* Most close traffic is treated as highest priority target */
@@ -300,6 +299,22 @@ void NMEA_Export()
               HP_alarm_level = alarm_level;
               HP_distance = distance;
             }
+
+            // selbsterzeugtes NMEA sentence
+            //snprintf_P(NMEABuffer, sizeof(NMEABuffer), PSTR("$TRAFFIC,%d,%d,%d,%d,%06X!%s_%06X,%d,%d,%d*"),
+            snprintf_P(NMEABuffer, sizeof(NMEABuffer), PSTR("$TRAFFIC,%f,%f,%f,%f,%f,%d,%s,%d,%d"),
+                    Container[i].latitude,
+                    Container[i].longitude,
+                    Container[i].altitude,
+                    Container[i].course,
+                    Container[i].speed * _GPS_MPS_PER_KNOT,
+                    Container[i].addr,
+                    NMEA_CallSign_Prefix[Container[i].protocol],
+                    Container[i].aircraft_type,
+                    alarm_level);
+
+            NMEA_add_checksum(NMEABuffer, sizeof(NMEABuffer) - strlen(NMEABuffer));
+            NMEA_Out((byte *) NMEABuffer, strlen(NMEABuffer), false);
 
           }
         }
@@ -316,9 +331,22 @@ void NMEA_Export()
               ALARM_TYPE_AIRCRAFT, HP_alt_diff, (int) HP_distance );
 
       NMEA_add_checksum(NMEABuffer, sizeof(NMEABuffer) - strlen(NMEABuffer));
-
       NMEA_Out((byte *) NMEABuffer, strlen(NMEABuffer), false);
     }
+
+    // selbsterzeugtes NMEA sentence
+    snprintf_P(NMEABuffer, sizeof(NMEABuffer), PSTR("$MYSELF,%f,%f,%f,%f,%f,%d,%d"),
+              ThisAircraft.latitude,
+              ThisAircraft.longitude,
+              ThisAircraft.altitude,
+              ThisAircraft.course,
+              ThisAircraft.speed * _GPS_MPS_PER_KNOT,
+              ThisAircraft.addr,
+              ThisAircraft.aircraft_type);
+
+     NMEA_add_checksum(NMEABuffer, sizeof(NMEABuffer) - strlen(NMEABuffer));
+     NMEA_Out((byte *) NMEABuffer, strlen(NMEABuffer), false);
+
 }
 
 void NMEA_Position()

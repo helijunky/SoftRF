@@ -352,9 +352,19 @@ static void ESP32_WiFi_transmit_UDP(int port, byte *buf, size_t size)
 {
   IPAddress ClientIP;
 
+  // send to vServer NIRO
+  IPAddress niro(185,178,194,56);
+  ClientIP = niro;
+  Serial.print("UDP unicast to ");
+  Serial.println(ClientIP);
+  Uni_Udp.beginPacket(ClientIP, port);
+  Uni_Udp.write(buf, size);
+  Uni_Udp.endPacket();
+
   if (WiFi.getMode() == WIFI_STA) {
     ClientIP = ESP32_WiFi_get_broadcast();
-
+    Serial.print("UDP broadcast to ");
+    Serial.println(ClientIP);
     Uni_Udp.beginPacket(ClientIP, port);
     Uni_Udp.write(buf, size);
     Uni_Udp.endPacket();
@@ -369,7 +379,8 @@ static void ESP32_WiFi_transmit_UDP(int port, byte *buf, size_t size)
     int i = 0;
     while(i < infoList.num) {
       ClientIP = infoList.sta[i++].ip.addr;
-
+      Serial.print("UDP unicast to ");
+      Serial.println(ClientIP);
       Uni_Udp.beginPacket(ClientIP, port);
       Uni_Udp.write(buf, size);
       Uni_Udp.endPacket();
